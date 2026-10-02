@@ -55,7 +55,7 @@ Wer so etwas nachbauen will, fängt am besten mit den sieben Kerntabellen aus [`
 
 ## Was hier nicht steht
 
-Keine Rezepte und Rohstoffdaten, keine Skripte, keine Personendaten. Das Ölmodell (Ölgruppen) stammt von Olionatura und wird nicht reproduziert.
+Keine Rezepte und Rohstoffdaten, keine Skripte, keine Personendaten. Das Ölmodell (Ölgruppen) und die Bücher und Rezepte von Heike Käser (Olionatura) sind urheberrechtlich geschützt und für den privaten Gebrauch bestimmt. Dieses Repo enthält nichts daraus. Die MIT-Lizenz gilt nur für die hier enthaltenen eigenen Texte und die SQL-Skizze.
 
 ## Lizenz
 
