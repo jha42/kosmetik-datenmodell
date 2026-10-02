@@ -15,13 +15,20 @@ Dieses Dokument beschreibt das Datenmodell, mit dem ich beim Rühren von Naturko
 
 ## Die Beziehungen
 
+```mermaid
+erDiagram
+    ROHSTOFF ||--o{ CHARGE : "hat Packungen"
+    CHARGE ||--o{ VERBRAUCHSBUCHUNG : "wird gebucht in"
+    ANSATZ ||--o{ VERBRAUCHSBUCHUNG : "verbraucht"
+    REZEPT ||--o{ ANSATZ : "wird gerührt als"
+    REZEPT ||--o{ PHASE : "gliedert sich in"
+    PHASE ||--o{ ZUTAT : "enthält"
+    ROHSTOFF ||--o{ ZUTAT : "wird verwendet als"
+    ANSATZ ||--o{ ANSATZ_VERTEILUNG : "geht an"
+    PERSON ||--o{ ANSATZ_VERTEILUNG : "bekommt"
 ```
-Rohstoff   1 ── n  Charge
-Charge     1 ── n  Verbrauchsbuchung  n ── 1  Ansatz
-Rezept     1 ── n  Ansatz
-Rezept     1 ── n  Phase    1 ── n  Zutat  n ── 1  Rohstoff
-Ansatz     n ── m  Person   (über "Ansatz-Verteilung", dort steht das Feedback)
-```
+
+Lesehilfe: Ein Strich mit "||" auf der einen und "o{" auf der anderen Seite bedeutet "eins zu viele" (ein Rohstoff hat viele Chargen). Die Ansatz-Verteilung verbindet Ansätze und Personen und trägt das Feedback.
 
 Dazu kommen kleine Zusatztabellen: Fettsäureprofile (mehrere Rohstoffe können auf dasselbe Profil zeigen), Rohstoff-Aliase (Synonyme und Markennamen), Einkaufsliste und Verpackungen.
 
@@ -49,9 +56,26 @@ Dazu kommen kleine Zusatztabellen: Fettsäureprofile (mehrere Rohstoffe können 
 - **Rezept-Version als eigene Zeile.** Statt ein Rezept zu überschreiben, wird eine neue Version angelegt und die aktuelle markiert. So sieht man, was sich wann und warum geändert hat.
 - **Verpackungen hängen bewusst an nichts.** Zu Beginn war nicht klar, wie sie gebraucht werden, also erst eine einfache Liste. Verknüpfen kann man später immer noch.
 
+## Was die Skripte tun (ohne Code)
+
+Die Skripte sind in Python geschrieben, die Logik funktioniert aber in jeder Sprache. Sie liegen nicht in diesem Repo, die Beschreibung soll nur zeigen, was sich aus dem Datenmodell herausholen lässt.
+
+- **Verbrauch abbuchen.** Nach dem Rühren wird der Ansatz bestätigt. Das Skript zeigt zuerst einen Plan, welche Charge wie viel abgibt: zuerst eine bereits angebrochene Packung, sonst die mit dem frühesten MHD, Chargen ohne MHD kommen ans Ende und werden markiert. Einzelne Chargen kann man von Hand überschreiben. Erst nach der Bestätigung wird gebucht, in einem Schritt: Verbrauchsbuchungen anlegen, Bestand senken, leere Chargen auf "leer-ausgebucht" mit Bestand 0 setzen, Ansatz auf "Erfolgreich gerührt" setzen. Reicht der Bestand für eine Zutat nicht, wird für sie nichts gebucht, die Lücke bleibt sichtbar. Ein Ansatz kann nicht doppelt gebucht werden.
+- **Rührzettel erzeugen.** Aus Rezept und gewünschter Batchgröße in Gramm entsteht eine druckbare Seite: Zutaten nach Phasen, Mengen in Gramm, dazu Lagerplatz und Chargennummer der Packung, die genommen werden soll (nach derselben Regel wie beim Abbuchen). Links gibt es eine Checkbox zum Abhaken.
+- **Etiketten erzeugen.** Aus dem Rezept werden Etiketten mit Namen und Zutatenliste für die fertigen Gebinde gedruckt.
+
 ## Für den Einstieg
 
 Wer so etwas nachbauen will, fängt am besten mit den sieben Kerntabellen aus [`schema.sql`](schema.sql) an (Rohstoff, Charge, Rezept, Phase, Zutat, Ansatz, Verbrauchsbuchung) und lässt alles andere weg. Ein guter erster Test ist die Frage: "Wie viel Sheabutter habe ich insgesamt?" Das ist eine einzige Abfrage über die Chargen (siehe die View `rohstoff_bestand`).
+
+## Falls du NocoDB nutzt
+
+Die produktive Variante läuft in NocoDB. Dort gibt es eine eigene Dokumentation, die ich nicht nachbaue: https://nocodb.com/docs/product
+
+Zur Orientierung:
+- Die Beziehungen aus dem Diagramm sind dort **Link-Felder** (eins zu viele, viele zu eins, viele zu viele). Berechnetes wie der Gesamtbestand ist ein **Rollup**, **Lookup** oder **Formelfeld**.
+- NocoDB steht unter der "Sustainable Use License", also nicht unter einer Open-Source-Lizenz im strengen Sinn. Die private Nutzung ist erlaubt. Den Lizenztext findest du im NocoDB-Repo.
+- Stand 02.10.2026 gibt es bei einer MariaDB als Unterbau einen bekannten Fehler beim Löschen und Ändern in Tabellen mit Link-, Lookup- oder Rollup-Feldern: https://github.com/nocodb/nocodb/issues/14035
 
 ## Was hier nicht steht
 
