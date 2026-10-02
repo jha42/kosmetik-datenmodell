@@ -59,4 +59,4 @@ Keine Rezepte und Rohstoffdaten, keine Skripte, keine Personendaten. Das Ölmode
 
 ## Lizenz
 
-Text und SQL-Skizze: nach Wahl, z. B. CC BY 4.0 oder MIT. (Bitte beim Anlegen des Repos eintragen.)
+MIT, siehe [`LICENSE`](LICENSE).
