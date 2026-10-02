@@ -1,0 +1,6 @@
+# Nie ins Repo: Zugangsdaten und lokale Dateien
+.env
+.env.*
+*.key
+*.pem
+.DS_Store
