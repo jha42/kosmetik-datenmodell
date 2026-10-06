@@ -54,7 +54,7 @@ Dazu kommen kleine Zusatztabellen: Fettsäureprofile (mehrere Rohstoffe können 
 - **Die Verarbeitung gehört zur Phase, nicht zum Rohstoff.** Dieselbe Butter wird in einem Rezept geschmolzen, im nächsten kalt eingerührt.
 - **Selbst Hergestelltes (Mazerate, Hydrolate) wird wieder zum Rohstoff mit eigener Charge.** So reicht die Rückverfolgung bis zum Ausgangsrohstoff.
 - **Rezept-Version als eigene Zeile.** Statt ein Rezept zu überschreiben, wird eine neue Version angelegt und die aktuelle markiert. So sieht man, was sich wann und warum geändert hat.
-- **Verpackungen hängen bewusst an nichts.** Zu Beginn war nicht klar, wie sie gebraucht werden, also erst eine einfache Liste. Verknüpfen kann man später immer noch.
+- **Verpackungen waren zuerst bewusst unverknüpft.** Zu Beginn war nicht klar, wie sie gebraucht werden, also erst eine einfache Liste. Inzwischen hat jede Verpackung eine optionale Verknüpfung zur passenden Etikettenvorlage; Verknüpfen kann man später immer noch.
 
 ## Was die Skripte tun (ohne Code)
 
@@ -74,8 +74,8 @@ Die produktive Variante läuft in NocoDB. Dort gibt es eine eigene Dokumentation
 
 Zur Orientierung:
 - Die Beziehungen aus dem Diagramm sind dort **Link-Felder** (eins zu viele, viele zu eins, viele zu viele). Berechnetes wie der Gesamtbestand ist ein **Rollup**, **Lookup** oder **Formelfeld**.
-- NocoDB steht unter der "Sustainable Use License", also nicht unter einer Open-Source-Lizenz im strengen Sinn. Die private Nutzung ist erlaubt. Den Lizenztext findest du im NocoDB-Repo.
-- Stand 02.10.2026 gibt es bei einer MariaDB als Unterbau einen bekannten Fehler beim Löschen und Ändern in Tabellen mit Link-, Lookup- oder Rollup-Feldern: https://github.com/nocodb/nocodb/issues/14035
+- NocoDB steht in den aktuellen Versionen unter der "Sustainable Use License" (Stand der Lizenzdatei: 29.01.2026), also nicht unter einer Open-Source-Lizenz im strengen Sinn. Die private Nutzung ist erlaubt. Den Lizenztext findest du im NocoDB-Repo.
+- Stand 02.10.2026 gibt es bei einer MariaDB als Unterbau einen bekannten Fehler beim Löschen und Ändern **über die REST-API** in Tabellen mit Link-, Lookup- oder Rollup-Feldern (die NocoDB-Oberfläche ist nach meinen Tests nicht betroffen): https://github.com/nocodb/nocodb/issues/14035
 
 ## Was hier nicht steht
 
