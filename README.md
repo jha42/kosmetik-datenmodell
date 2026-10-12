@@ -68,6 +68,8 @@ Die Skripte sind in Python geschrieben, die Logik funktioniert aber in jeder Spr
 
 Wer so etwas nachbauen will, fängt am besten mit den sieben Kerntabellen aus [`schema.sql`](schema.sql) an (Rohstoff, Charge, Rezept, Phase, Zutat, Ansatz, Verbrauchsbuchung) und lässt alles andere weg. Ein guter erster Test ist die Frage: "Wie viel Sheabutter habe ich insgesamt?" Das ist eine einzige Abfrage über die Chargen (siehe die View `rohstoff_bestand`).
 
+Wer das Ganze mit einer KI auf einem einzelnen Windows-PC aufbauen möchte, findet in [`docs/starter-prompt.md`](docs/starter-prompt.md) einen Startprompt (SQLite statt Datenbankserver, lokale Webseite, kleine Schritte).
+
 ## Falls du NocoDB nutzt
 
 Die produktive Variante läuft in NocoDB. Dort gibt es eine eigene Dokumentation, die ich nicht nachbaue: https://nocodb.com/docs/product
