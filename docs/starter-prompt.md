@@ -22,9 +22,8 @@ komplett lokal auf meinem Windows-PC. Ich bin keine Programmiererin; du schreibs
 erklärst, ich entscheide und teste.
 
 Als Vorlage dient dieses öffentliche Repo: https://github.com/jha42/kosmetik-datenmodell
-Bitte lies zuerst README.md (Grundideen, Tabellen, Entwurfsentscheidungen), schema.sql
-(ungetestete SQL-Skizze) und docs/lehren.md (Erfahrungen und Regeln). Übernimm die Ideen,
-nicht blind den Aufbau.
+Bitte lies zuerst README.md (Grundideen, Tabellen, Entwurfsentscheidungen) und schema.sql
+(ungetestete SQL-Skizze). Übernimm die Ideen, nicht blind den Aufbau.
 
 Randbedingungen
 - Alles läuft lokal auf diesem Windows-PC, keine Cloud, keine Server, kein Docker.
